@@ -9,15 +9,15 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_values(self):
         node = HTMLNode("div", "I wish I could read")
-        
+
         self.assertEqual(node.tag, "div")
         self.assertEqual(node.value, "I wish I could read")
         self.assertEqual(node.children, None)
         self.assertEqual(node.props, None)
-        
+
     def tst_repr(self):
         node = HTMLNode("p", "What a strange world", None, {"class": "primary"})
-        self.asserEqual(node.__repr__(), "HTMLNode(p, What a strange world, children: Node, {'class': 'primary'})")
+        self.assertEqual(node.__repr__(), "HTMLNode(p, What a strange world, children: Node, {'class': 'primary'})")
 
 
     def test_leaf_to_html_p(self):
