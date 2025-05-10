@@ -23,6 +23,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         if start_index > 0:
             new_nodes.append(TextNode(text[:start_index], TextType.TEXT))
 
+
         new_nodes.append(TextNode(text[start_index + len(delimiter): end_index], text_type))
         end_text = text[end_index + len(delimiter):]
 
@@ -86,7 +87,17 @@ def split_nodes_link(old_nodes):
             new_nodes.append(TextNode(sections[0], TextType.TEXT))
         new_nodes.append(TextNode(text, TextType.LINK, link))
 
-        if len(sections) > 1:
+        if len(sections) > 1 and sections[1]:
             new_nodes.extend(split_nodes_link([TextNode(sections[1], TextType.TEXT)]))
 
     return new_nodes
+
+def text_to_textnodes(text):
+    text_nodes = [TextNode(text, TextType.TEXT)]
+    code_text_nodes = split_nodes_delimiter(text_nodes, "`", TextType.CODE)
+    image_nodes = split_nodes_image(code_text_nodes)
+    link_nodes = split_nodes_link(image_nodes)
+    bold_text_nodes = split_nodes_delimiter(link_nodes, "**", TextType.BOLD)
+    italic_text_nodes = split_nodes_delimiter(bold_text_nodes, "_", TextType.ITALIC)
+
+    return italic_text_nodes
