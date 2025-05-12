@@ -23,7 +23,13 @@ def generate_page(from_path, template_path, dest_path, basepath):
 
     md_html = markdown_to_html_node(markdown_contents).to_html()
     md_title = extract_title(markdown_contents)
-    new_html = template_contents.replace("{{ Content }}", md_html).replace("{{ Title }}", md_title).replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
+    new_html = template_contents.replace("{{ Content }}", md_html).replace("{{ Title }}", md_title)
+
+    if basepath.endswith('/') and basepath != '/':
+        basepath = basepath[:-1]
+
+    new_html = new_html.replace('href="/', f'href="{basepath}/')
+    new_html = new_html.replace('src="/', f'src="{basepath}/')
 
     dir_path = os.path.dirname(dest_path)
     if dir_path:
