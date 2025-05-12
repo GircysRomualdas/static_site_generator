@@ -1,5 +1,5 @@
 from copy_directory import transfer_content
-from generate_content import generate_page
+from generate_content import generate_pages_recursive
 import os
 
 def main():
@@ -10,10 +10,10 @@ def main():
     public_path = os.path.join(project_root_path, "public")
     transfer_content(static_path, public_path)
 
-    from_path = os.path.join(project_root_path, "content/index.md")
+    from_path = os.path.join(project_root_path, "content")
     template_path = os.path.join(project_root_path, "template.html")
-    destination_path = os.path.join(project_root_path, "public/index.html")
-    generate_page(from_path, template_path, destination_path)
+    destination_path = os.path.join(project_root_path, "public")
+    generate_pages_recursive(from_path, template_path, destination_path)
 
 if __name__ == "__main__":
     main()
