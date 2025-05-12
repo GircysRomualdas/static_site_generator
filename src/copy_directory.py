@@ -1,22 +1,14 @@
 import os
 import shutil
 
-def copy_static_to_public():
-    print("Start copying content")
-    current_dir_path = os.path.dirname(os.path.abspath(__file__))
-    project_root_path = os.path.abspath(os.path.join(current_dir_path, ".."))
-    static_path = os.path.join(project_root_path, "static")
-    public_path = os.path.join(project_root_path, "public")
-
-    transfer_content(static_path, public_path)
-    print("End copying content")
-
 def transfer_content(source_path, destination_path):
+    print("Start copying content")
     if not os.path.exists(source_path):
         raise ValueError("not valid source path")
 
     clear_directory(destination_path)
     copy_content(get_file_paths(source_path), destination_path)
+    print("End copying content")
 
 def get_file_paths(path):
     files = []

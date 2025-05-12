@@ -1,8 +1,19 @@
-from textnode import TextNode, TextType
-from copy_directory import copy_static_to_public
+from copy_directory import transfer_content
+from generate_content import generate_page
+import os
 
 def main():
-    copy_static_to_public()
+    current_dir_path = os.path.dirname(os.path.abspath(__file__))
+    project_root_path = os.path.abspath(os.path.join(current_dir_path, ".."))
+
+    static_path = os.path.join(project_root_path, "static")
+    public_path = os.path.join(project_root_path, "public")
+    transfer_content(static_path, public_path)
+
+    from_path = os.path.join(project_root_path, "content/index.md")
+    template_path = os.path.join(project_root_path, "template.html")
+    destination_path = os.path.join(project_root_path, "public/index.html")
+    generate_page(from_path, template_path, destination_path)
 
 if __name__ == "__main__":
     main()
