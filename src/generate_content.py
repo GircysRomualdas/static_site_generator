@@ -1,4 +1,5 @@
 import re
+import os
 from markdown_blocks import markdown_to_html_node
 
 def extract_title(markdown):
@@ -23,6 +24,10 @@ def generate_page(from_path, template_path, dest_path):
     md_html = markdown_to_html_node(markdown_contents).to_html()
     md_title = extract_title(markdown_contents)
     new_html = template_contents.replace("{{ Content }}", md_html).replace("{{ Title }}", md_title)
+
+    dir_path = os.path.dirname(dest_path)
+    if dir_path:
+        os.makedirs(dir_path, exist_ok=True)
 
     with open(dest_path, "w") as data:
         data.write(new_html)
