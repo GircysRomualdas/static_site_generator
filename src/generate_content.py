@@ -28,8 +28,11 @@ def generate_page(from_path, template_path, dest_path, basepath):
     if basepath.endswith('/') and basepath != '/':
         basepath = basepath[:-1]
 
-    new_html = new_html.replace('href="/', f'href="{basepath}/')
-    new_html = new_html.replace('src="/', f'src="{basepath}/')
+    if basepath != "/":
+        if basepath.endswith('/'):
+            basepath = basepath[:-1]
+        new_html = new_html.replace('href="/', f'href="{basepath}/')
+        new_html = new_html.replace('src="/', f'src="{basepath}/')
 
     dir_path = os.path.dirname(dest_path)
     if dir_path:
