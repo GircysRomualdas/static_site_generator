@@ -2,13 +2,13 @@ import os
 import shutil
 
 def transfer_content(source_path, destination_path):
-    print("Start copying content")
+    print("\nStart copying content\n")
     if not os.path.exists(source_path):
         raise ValueError("not valid source path")
 
     clear_directory(destination_path)
     copy_content(get_file_paths(source_path), destination_path)
-    print("End copying content")
+    print("\nEnd copying content\n")
 
 def get_file_paths(path):
     files = []
@@ -31,16 +31,16 @@ def copy_content(source_paths, destination_path):
 
         if source_sub_dir_paths is None:
             shutil.copy(source_file_path, destination_file_path)
-            print(f"Copy file from {source_file_path} to {destination_file_path}")
+            print(f"\tCopy file from {source_file_path} to {destination_file_path}")
         else:
             os.mkdir(destination_file_path)
-            print(f"Create {destination_file_path} directory")
+            print(f"\tCreate {destination_file_path} directory")
             copy_content(source_sub_dir_paths, destination_file_path)
 
 def clear_directory(path):
     if os.path.exists(path):
         shutil.rmtree(path)
-        print(f"Delete old {path} directory and is content")
+        print(f"\tDelete old {path} directory and is content")
 
     os.mkdir(path)
-    print(f"Create empty {path} directory")
+    print(f"\tCreate empty {path} directory")
